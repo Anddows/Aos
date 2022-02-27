@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik&display=swap">
+   <title>The web</title>
+</head>
+  <body id="demo2" background="">
+<div id="menucard" class="w3-container">
+  <img id="image1" class="image1" src="computer.png" width="30px" height="30px">
+  <img id="image2" class="image2" src="setting.png" width="20px" height="20px">
+</div>
+<!-- panel settings -->
+  <div id="panel" class="panel">
+<br><button class="close1" onclick="document.getElementById('panel').style.display = 'none'"><</button>
+  <br><h5 class="text">Panel Color</h5>
+   <button class="color1" onclick="document.getElementById('menucard').style.background = '#B71C1C'">Red</button>
+   <button class="color2" onclick="document.getElementById('menucard').style.background = '#4A148C'">Purple</button>
+   <button class="color3" onclick="document.getElementById('menucard').style.background = '#880E4F'">Pink</button>
+   <button class="color4" onclick="document.getElementById('menucard').style.background = '#0D47A1'">Blue</button>
+   <button class="color5" onclick="document.getElementById('menucard').style.background = '#01579B'">Light blue</button>
+   <button class="color6" onclick="document.getElementById('menucard').style.background = '#004D40'">Teal</button>
+   <button class="color7" onclick="document.getElementById('menucard').style.background = '#1B5E20'">Green</button>
+   <button class="color8" onclick="document.getElementById('menucard').style.background = '#FFEB3B'">Yellow</button>
+   <button class="color9" onclick="document.getElementById('menucard').style.background = '#E65100'">Orange</button>
+  <br>
+    <br><h5 class="text">Panel icons size</h5>
+  <button class="iconsize1">50px</button>
+<button class="iconsize1">40px</button>
+    <button class="iconsize1">45px</button>
+    <button class="iconsize1">30px</button>
+
+    <br>
+    <br><h5 class="text">Panel fonts size</h5>
+    <button class="iconsize1">15px</button>
+    <button class="iconsize1">20px</button>
+    <button class="iconsize1">25px</button>
+    <button class="iconsize1">30px</button>
+
+
+
+  </div>
+
+  <!-- display -->
+  <div id="display" class="display">
+    <br><button class="close1" onclick="document.getElementById('display').style.display = 'none'"><</button>
+    <input type="file" name="file" id="selectim"/>
+    <label for="selectim"><h5 class="selectim">Select Image</h5></label>
+
+    <br>
+    <br><h5 class="text">Fonts size</h5>
+    <button class="iconsize1">15px</button>
+    <button class="iconsize1">20px</button>
+    <button class="iconsize1">25px</button>
+    <button class="iconsize1">30px</button>
+    <button class="iconsize1">35px</button>
+    <button class="iconsize1">40px</button>
+
+    <br>
+    <br><h5 class="text">Opacity</h5>
+    <button class="iconsize1">0.5</button>
+    <button class="iconsize1">5</button>
+    <button class="iconsize1">6</button>
+    <button class="iconsize1">7</button>
+    <button class="iconsize1">8</button>
+
+    <br>
+    <br><h5 class="text">Theme</h5>
+    <button class="iconsize1">Black Dark</button>
+    <button class="iconsize1">Dark</button>
+    <button class="iconsize1">Light</button>
+  </div>
+<!-- icons -->
+  <div id="icons" class="icons">
+    <br><button class="close1" onclick="document.getElementById('icons').style.display = 'none'"><</button>
+
+  </div>
+<!-- fonts -->
+  <div id="fonts" class="fonts">
+    <br><button class="close1" onclick="document.getElementById('fonts').style.display = 'none'"><</button>
+
+  </div>
+
+<!-- files -->
+  <div id="files" class="files">
+    <br><button class="close1" onclick="myFiles()"> x </button>
+
+    <form id="add" action="." method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+               <button class="button2" type="submit">Upload</button>
+    </form>
+
+    {% if obj %}
+    <h3 class="text">Rasm yuklandi: {{ img_obj.caption }}</h3>
+    <img src="{{ obj.image.url }}" width="50%" height="50%">
+    {% endif %}
+
+    {% for x in img %}
+    {% if forloop.first %}
+    <div class="row">
+    {% endif %}
+        <div class="col-lg-4 col-md-4 col-12">
+    <img src="{{ x.image.url }}" width="50%" height="50%">
+    <h3 class="text">{{ x.caption }}</h3>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}
+    </div>
+    <div class="row">{% endif %}
+        {% if forloop.last %}</div>{% endif %}
+    {% endfor %}
+
+  </div>
+
+  <script>
+  document.querySelector("#file-input").addEventListener("change", function() {
+     const reader = new FileReader();
+
+
+     reader.addEventListener("load", () => {
+         localStorage.setItem("recent-image", reader.result);
+         // document.querySelector('#display_image').style.backgroundImage = `url(${uploaded_image})`;
+    });
+
+    reader.readAsDataURL(this.files[0]);
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+     const recentImageDataUrl = localStorage.getItem("recent-image");
+
+     if (recentImageDataUrl) {
+       document.querySelector('#my2').setAttribute("src", recentImageDataUrl);
+     }
+  });
+
+
+  </script>
+  <!-- Alt + s -->
+<div id="card" class="card">
+  <br><button class="close1" onclick="myFunction()">x</button>
+
+  <br><button id="buttonpanel" class="button" onclick="myPanel()">Panel settings</button>
+  <br><button id="buttondisplay" class="button" onclick="myDisplay()">Display</button>
+  <br><button class="button" onclick="document.getElementById('icons').style.display = 'block'">Icons settings</button>
+  <br><button class="button" onclick="document.getElementById('fonts').style.display = 'block'">Fonts settings</button>
+</div>
+
+<script>
+  function myDisplay() {
+    document.getElementById('display').style.display = 'block'
+    // document.getElementById('buttondisplay').style.background = '#0277BD'
+  }
+  function myPanel() {
+    document.getElementById('panel').style.display = 'block'
+    // document.getElementById('buttonpanel').style.background = '#0277BD'
+  }
+  function myFunction() {
+    document.getElementById('card').style.display = "none";
+    document.getElementById('image2').style.display = "none";
+      }
+
+ function myFiles() {
+   document.getElementById('files').style.display = "none";
+   document.getElementById('image1').style.display = "none";
+ }
+</script>
+
+<script>
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "s" && event.altKey) {
+      document.getElementById('card').style.display="block";
+      document.getElementById('image2').style.display = "block";
+    }
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "f" && event.altKey) {
+      document.getElementById('files').style.display="block";
+      document.getElementById('image1').style.display = "block";
+      document.getElementById('demo2').style.background = "#000000";
+    }
+  });
+
+  document.querySelector("#selectim").addEventListener("change", function() {
+     const reader = new FileReader();
+
+
+     reader.addEventListener("load", () => {
+         localStorage.setItem("theemy-image", reader.result);
+         // document.querySelector('#display_image').style.backgroundImage = `url(${uploaded_image})`;
+    });
+
+    reader.readAsDataURL(this.files[0]);
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+     const recentImageDataUrl = localStorage.getItem("theemy-image");
+
+     if (recentImageDataUrl) {
+       document.querySelector('#demo2').setAttribute("background", recentImageDataUrl);
+     }
+  });
+</script>
+
+<style>
+
+.text {
+ text-align: left;
+ margin-left: 10px;
+ color: white;
+ font-family: sans-serif;
+ }
+
+  .selectim {
+    color: white;
+    margin-left: 15px;
+
+  }
+
+
+  #selectim {
+    display: none;
+  }
+
+  #images {
+    width: 90%;
+    border: 1px solid black;
+    position: relative;
+    margin: auto;
+    display: flex;
+    justify-content: space-evently;
+    gap: 20px;
+    flex-wrap: wrap;
+
+  }
+
+figure {
+  width: 45%;
+}
+
+.image {
+  width: 100%;
+}
+
+  #file-input {
+    color: white;
+    display: none;
+  }
+
+  body {
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  .text {
+    color: white;
+    margin-left: 10px;
+    font-family: sans-serif;
+  }
+  .color1 {
+    background: #B71C1C;
+    width: 100px;
+    border: none;
+    margin-left: 15px;
+    float: left;
+    color: white;
+    height: 50px;
+
+  }
+
+  .color2 {
+    background: #880E4F;
+    width: 100px;
+    border: none;
+    color: white;
+    float: left;
+    height: 50px;
+
+  }
+
+  .color3 {
+    background: #4A148C;
+    width: 100px;
+    float: left;
+    border: none;
+    color: white;
+    height: 50px;
+  }
+
+  .color4 {
+    background: #0D47A1;
+    width: 100px;
+    float: left;
+    border: none;
+    color: white;
+    height: 50px;
+  }
+
+  .color5 {
+    background: #01579B;
+    width: 100px;
+    border: none;
+    float: left;
+    color: white;
+    height: 50px;
+  }
+
+  .color6 {
+    background: #004D40;
+    width: 100px;
+    border: none;
+    float: left;
+    color: white;
+    height: 50px;
+  }
+
+  .color7 {
+    background: #1B5E20;
+    width: 100px;
+    border: none;
+    color: white;
+    float: left;
+    height: 50px;
+  }
+
+  .color8 {
+    background: #FFEB3B;
+    width: 100px;
+    border: none;
+    color: white;
+    float: left;
+    height: 50px;
+  }
+
+
+  .color9 {
+    background: #E65100;
+    width: 100px;
+    float: left;
+    border: none;
+    color: white;
+    height: 50px;
+  }
+
+  .image1 {
+    margin-left: 10px;
+    margin-top: 5px;
+    display: none;
+  }
+
+  .image2 {
+    margin-left: 10px;
+    margin-top: 10px;
+    float: left;
+    display: none;
+  }
+
+  .iconsize1 {
+    margin-left: 15px;
+    color: white;
+    background: none;
+    border: none;
+    width: 100px;
+    height: 50px;
+  }
+
+  .iconsize1 {
+    transition-duration: 0.5;
+  }
+  .iconsize1:hover {
+    color: white;
+    background: #0277BD;
+  }
+
+
+  .button {
+    margin-left: 5px;
+    color: white;
+    background: none;
+    border: none;
+    text-align: left;
+    width: 200px;
+    height: 50px;
+  }
+
+  .button {
+    transition-duration: 0.5;
+  }
+  .button:hover {
+    color: white;
+    background: #0277BD;
+  }
+
+
+  .close1 {
+    margin-left: 5px;
+    color: white;
+    width: 40px;
+    background: none;
+    border: none;
+    height: 40px;
+  }
+
+  .close1 {
+    transition-duration: 0.5;
+  }
+
+  .close1:hover {
+    background: #B71C1C;
+    color: white;
+  }
+
+    .button2 {
+    margin-left: 55px;
+    color: white;
+    background: none;
+    border: none;
+    text-align: left;
+    width: 200px;
+    height: 50px;
+  }
+
+  .button2 {
+    transition-duration: 0.5;
+  }
+  .button2:hover {
+    color: white;
+    background: #0277BD;
+  }
+
+  .card {
+    width: 220px;
+    height: 650px;
+    border: none;
+    position: relative;
+    background: black;
+    display: none;
+
+
+  }
+
+  .panel {
+    width: 81%;
+    height: 650px;
+    float: right;
+    border: none;
+    position: relative;
+    background: black;
+    display: none;
+
+
+  }
+
+  .icons {
+    width: 81%;
+    height: 650px;
+    float: right;
+    border: none;
+    position: relative;
+    background: black;
+    display: none;
+
+
+  }
+
+  .fonts {
+    width: 81%;
+    height: 650px;
+    float: right;
+    border: none;
+    position: relative;
+    background: black;
+    display: none;
+
+
+  }
+
+  .display {
+    width: 81%;
+    height: 650px;
+    float: right;
+    border: none;
+    position: relative;
+    background: black;
+    display: none;
+
+
+  }
+
+  .files {
+    width: 100%;
+    height: 650px;
+    float: right;
+    border: none;
+    position: relative;
+    background: black;
+    display: none;
+
+  }
+  #menucard {
+    border: none;
+    background: #212121;
+    height: 40px;
+  }
+  </style>
+
+
+  </body>
+</html>
